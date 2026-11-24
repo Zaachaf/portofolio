@@ -38,6 +38,7 @@ export const PROFILE: Profile = {
       category: "Game Development",
       items: [
         "2D Game Development",
+        "3D Game Development",
         "Game Programming",
         "Raycasting",
         "Audio Processing (FFT)",
