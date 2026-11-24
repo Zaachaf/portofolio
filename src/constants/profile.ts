@@ -21,6 +21,7 @@ export const PROFILE: Profile = {
         "MySQL",
         "JavaScript",
         "Vue.js",
+        "Next.js",
         "Ant Design Vue",
         "Responsive Web Design",
       ],
