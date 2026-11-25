@@ -1,6 +1,6 @@
 import Badge from "@/components/ui/Badge";
 import CertificateButton from "@/components/ui/CertificateButton";
-import ProjectGallery from "@/components/ui/ProjectGallery";
+import ProjectCarousel from "@/components/ui/ProjectCarousel";
 import type { ProjectItem } from "@/types";
 
 interface ProjectCardProps {
@@ -21,35 +21,41 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   } = project;
 
   return (
-    <li className="grid overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-accent/50 md:grid-cols-5">
-      <div className="border-b border-border bg-background/50 p-4 md:col-span-2 md:border-b-0 md:border-r">
+    <li className="overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-accent/50">
+      {/* Gambar di atas */}
+      <div className="border-b border-border bg-background/50 p-4">
         {images && images.length > 0 ? (
-          <ProjectGallery images={images} title={title} />
+          <ProjectCarousel images={images} title={title} />
         ) : (
-          <div className="flex aspect-video items-center justify-center rounded-lg bg-gradient-to-br from-accent/20 to-transparent">
-            <span className="text-4xl font-bold text-accent-soft/60">
+          <div className="flex h-[200px] items-center justify-center rounded-lg bg-gradient-to-br from-accent/20 to-transparent">
+            <span className="text-5xl font-bold text-accent-soft/60">
               {title.charAt(0)}
             </span>
           </div>
         )}
       </div>
 
-      <div className="p-6 md:col-span-3">
+      {/* Teks di bawah */}
+      <div className="p-6 sm:p-8">
         <div className="flex items-start justify-between gap-4">
-          <h3 className="text-xl font-semibold text-foreground">{title}</h3>
+          <h3 className="text-xl font-semibold text-foreground sm:text-2xl">
+            {title}
+          </h3>
           {period && (
             <span className="shrink-0 text-sm text-muted">{period}</span>
           )}
         </div>
 
-        <p className="mt-3 text-sm leading-relaxed text-muted">{description}</p>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
+          {description}
+        </p>
 
         {features && features.length > 0 && (
           <>
-            <h4 className="mt-6 text-sm font-semibold uppercase tracking-widest text-foreground">
+            <h4 className="mt-8 text-sm font-semibold uppercase tracking-widest text-foreground">
               {featuresTitle}
             </h4>
-            <ul className="mt-3 space-y-3 text-sm leading-relaxed text-muted">
+            <ul className="mt-4 grid gap-x-10 gap-y-4 text-sm leading-relaxed text-muted md:grid-cols-2">
               {features.map((feature) => (
                 <li key={feature.title} className="flex gap-3">
                   <span
@@ -69,7 +75,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         )}
 
         {certificates && certificates.length > 0 && (
-          <div className="mt-6">
+          <div className="mt-8">
             <h4 className="text-sm font-semibold uppercase tracking-widest text-foreground">
               Certificates
             </h4>
@@ -85,7 +91,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         )}
 
         {tags && tags.length > 0 && (
-          <ul className="mt-6 flex flex-wrap gap-2">
+          <ul className="mt-8 flex flex-wrap gap-2">
             {tags.map((tag) => (
               <li key={tag}>
                 <Badge>{tag}</Badge>
