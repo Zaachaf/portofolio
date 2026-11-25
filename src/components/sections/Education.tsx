@@ -23,7 +23,7 @@ export default function Education() {
                     <CrystalizedBall
                       preset="plasma"
                       color="#b28b1b"
-                      size={1}
+                      size={0.9}
                       crackle={0.85}
                       fill={0.5}
                       interactive
