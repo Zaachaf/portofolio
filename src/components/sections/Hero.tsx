@@ -4,6 +4,8 @@ import { useRef } from "react";
 import Button from "@/components/ui/Button";
 import LaserFlow from "@/components/ui/LaserFlow";
 import { PROFILE } from "@/constants/profile";
+import Magnet from "@/components/ui/Magnet";
+import ExternalLinks from "@/components/ui/ExternalLinks";
 
 export default function Hero() {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -55,27 +57,20 @@ export default function Hero() {
             {PROFILE.tagline}
           </p>
 
-          <div className="mt-8 flex flex-wrap justify-start gap-4">
-            <Button href="#experience">View Experience</Button>
-            <Button href="#contact" variant="outline">
-              Contact Me
-            </Button>
+          <div className="mt-8 flex flex-wrap gap-6">
+            <Magnet>
+              <Button href="#experience">View Experience</Button>
+            </Magnet>
+            <Magnet>
+              <Button href="#contact" variant="outline">
+                Contact Me
+              </Button>
+            </Magnet>
           </div>
 
-          <ul className="mt-8 flex flex-wrap justify-start gap-6">
-            {PROFILE.socials.map((social) => (
-              <li key={social.label}>
-                <a
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-muted transition-colors hover:text-accent-soft"
-                >
-                  {social.label} ↗
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-8">
+            <ExternalLinks links={PROFILE.socials} />
+          </div>
         </div>
       </div>
     </section>

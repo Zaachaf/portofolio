@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import CursorGrid from "@/components/ui/CursorGrid";
-import GhostCursor from "@/components/ui/GhostCursor";
 import "./globals.css";
 
 const inter = Inter({
@@ -28,28 +27,7 @@ export default function RootLayout({
         <div
           aria-hidden
           className="pointer-events-none fixed inset-0 z-[70] hidden md:block"
-        >
-          <GhostCursor
-            color="#818cf8"
-            size={40}
-            trailLength={50}
-            inertia={0.5}
-            turbulence={0.5}
-            drift={0.3}
-            bloomStrength={0.3}
-            grainIntensity={0.05}
-            detail={1}
-            brightness={0.5}
-            bloomRadius={1}
-            edgeIntensity={0}
-            fadeDelayMs={0}
-            fadeDurationMs={1500}
-            clickPuff
-            intro
-          />
-        </div>
-
-        {/* Latar grid yang bereaksi pada kursor, untuk semua bagian */}
+        ></div>
         <CursorGrid
           className="min-h-screen w-full"
           cellSize={60}

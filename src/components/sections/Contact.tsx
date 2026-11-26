@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { CONTACT } from "@/constants/profile";
+import Magnet from "@/components/ui/Magnet";
 
 interface ContactItem {
   label: string;
@@ -82,13 +83,15 @@ export default function Contact() {
         </ul>
 
         <div className="mt-10">
-          <Button
-            href={GMAIL_COMPOSE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Send an Email
-          </Button>
+          <Magnet>
+            <Button
+              href={GMAIL_COMPOSE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Send an Email
+            </Button>
+          </Magnet>
         </div>
       </div>
     </section>

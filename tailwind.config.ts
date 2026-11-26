@@ -27,8 +27,13 @@ const config: Config = {
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
+      marquee: {
+        "0%": { transform: "translateX(0)" },
+        "100%": { transform: "translateX(-50%)" },
+      },
       animation: {
         "fade-up": "fadeUp 0.7s ease-out both",
+        marquee: "marquee 40s linear infinite",
       },
     },
   },

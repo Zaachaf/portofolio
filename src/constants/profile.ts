@@ -68,10 +68,14 @@ export const PROFILE: Profile = {
   ],
 
   socials: [
-    { label: "Email", href: "mailto:zaachaf@gmail.com" },
+    {
+      label: "Email",
+      href: "https://mail.google.com/mail/?view=cm&to=zaachaf@gmail.com",
+    },
     { label: "Instagram", href: "https://instagram.com/apgiiii" },
     { label: "WhatsApp", href: "https://wa.me/6287838182550" },
     { label: "LinkedIn", href: "https://linkedin.com/in/zabihullah-achmad" },
+    { label: "Github", href: "https://github.com/Zaachaf" },
   ],
   education: [
     {

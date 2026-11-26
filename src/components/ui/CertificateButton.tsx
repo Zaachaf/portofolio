@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { CertificateItem } from "@/types";
+import { createPortal } from "react-dom";
 
 interface CertificateButtonProps {
   certificate: CertificateItem;
@@ -53,69 +54,71 @@ export default function CertificateButton({
         {certificate.title}
       </button>
 
-      {open && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={certificate.title}
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
-          onClick={() => setOpen(false)}
-        >
+      {open &&
+        createPortal(
           <div
-            className="flex h-[85vh] w-full max-w-4xl flex-col overflow-hidden rounded-xl border border-border bg-surface"
-            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label={certificate.title}
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
           >
-            <div className="flex items-center justify-between gap-4 border-b border-border px-4 py-3">
-              <p className="truncate text-sm font-medium text-foreground">
-                {certificate.title}
-              </p>
-              <div className="flex shrink-0 items-center gap-2">
-                <a
-                  href={certificate.file}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-md px-3 py-1.5 text-sm text-accent-soft transition-colors hover:bg-background"
-                >
-                  Buka di tab baru ↗
-                </a>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  aria-label="Tutup"
-                  className="rounded-md p-1.5 text-muted transition-colors hover:bg-background hover:text-foreground"
-                >
-                  <svg
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.8}
+            <div
+              className="flex h-[85vh] w-full max-w-4xl flex-col overflow-hidden rounded-xl border border-border bg-surface"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="flex items-center justify-between gap-4 border-b border-border px-4 py-3">
+                <p className="truncate text-sm font-medium text-foreground">
+                  {certificate.title}
+                </p>
+                <div className="flex shrink-0 items-center gap-2">
+                  <a
+                    href={certificate.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-md px-3 py-1.5 text-sm text-accent-soft transition-colors hover:bg-background"
                   >
-                    <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
-                  </svg>
-                </button>
+                    Buka di tab baru ↗
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setOpen(false)}
+                    aria-label="Tutup"
+                    className="rounded-md p-1.5 text-muted transition-colors hover:bg-background hover:text-foreground"
+                  >
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={1.8}
+                    >
+                      <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
 
-            {isPdf ? (
-              <iframe
-                src={certificate.file}
-                title={certificate.title}
-                className="h-full w-full bg-white"
-              />
-            ) : (
-              <div className="h-full w-full overflow-auto bg-background p-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              {isPdf ? (
+                <iframe
                   src={certificate.file}
-                  alt={certificate.title}
-                  className="mx-auto h-auto max-w-full rounded-md"
+                  title={certificate.title}
+                  className="h-full w-full bg-white"
                 />
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+              ) : (
+                <div className="h-full w-full overflow-auto bg-background p-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={certificate.file}
+                    alt={certificate.title}
+                    className="mx-auto h-auto max-w-full rounded-md"
+                  />
+                </div>
+              )}
+            </div>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

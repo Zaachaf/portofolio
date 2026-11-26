@@ -44,7 +44,7 @@ export default function About() {
                 alt={`Photo of ${PROFILE.name}`}
                 fill
                 sizes="256px"
-                className="object-cover object-top"
+                className="object-cover object-[45%_35%] scale-[1.5]"
                 priority
               />
             </div>
