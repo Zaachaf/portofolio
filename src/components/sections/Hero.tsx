@@ -2,45 +2,64 @@
 
 import { useRef } from "react";
 import Button from "@/components/ui/Button";
-import LaserFlow from "@/components/ui/LaserFlow";
+import Crosshair from "@/components/ui/Crosshair";
+import LetterGlitch from "@/components/ui/LetterGlitch";
 import { PROFILE } from "@/constants/profile";
 import Magnet from "@/components/ui/Magnet";
 import ExternalLinks from "@/components/ui/ExternalLinks";
 
 export default function Hero() {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
 
   return (
     <section
+      ref={containerRef}
       id="home"
       className="relative isolate min-h-screen overflow-hidden bg-background"
     >
-      <div className="absolute inset-0">
-        <LaserFlow
-          surfaceRef={cardRef}
-          beamPosition={0.25} // Coba di kisaran 0.22 - 0.28 sampai pas di antara logo & Home
-          color="#6366f1"
-          intensity={1.8}
-          flare={1.5}
-          spread={1.5}
-          spill={1}
-          fog={0.2}
-          dust={1.6}
-          beamWidth={1.5}
-          streaks={1.5}
-          dots={1}
-          pulse={1.5}
-          speed={1.5}
-          mouseInteraction
+      {/* Background LetterGlitch */}
+      <div className="absolute inset-0 z-0">
+        <LetterGlitch
+          glitchColors={["#ffffff", "#61dca3"]}
+          glitchAmount={0.5}
+          speed={1}
+          flow={0.5}
+          clickEffect="tear"
+          baseColor="#ffffff"
+          fontSize={14}
+          spacing={0.6}
+          density={0.9}
+          baseOpacity={0.16}
+          smooth
+          edgeFade={0}
+          centerFade={0}
+          interactive
+          cursorRadius={140}
           intro
+          lightMode={false}
         />
       </div>
 
-      <div className="container-page relative z-10 flex min-h-screen items-end pb-16 pt-16">
-        <div
-          ref={cardRef}
-          className="w-full rounded-2xl border border-border bg-[#0b0b0d] p-8 text-left sm:p-10"
-        >
+      {/* Crosshair Cursor */}
+      <Crosshair
+        containerRef={containerRef}
+        color="#ffffff"
+        targetEffect="lock"
+        thickness={1}
+        opacity={0.85}
+        smoothing={0}
+        showCoordinates
+        lineStyle="solid"
+        blendMode="normal"
+        gap={0}
+        fade={0}
+        clickPulse
+        hideCursor={false}
+      />
+
+      {/* Card Utama */}
+      <div className="container-page pointer-events-none relative z-10 flex min-h-screen items-end pb-16 pt-16">
+        <div className="pointer-events-auto w-full rounded-2xl border border-white/15 bg-[#0b0b0d]/90 p-8 text-left backdrop-blur-md sm:p-10">
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-muted">
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
             Open to new opportunities

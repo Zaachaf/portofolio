@@ -1,6 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Badge from "@/components/ui/Badge";
 import CertificateButton from "@/components/ui/CertificateButton";
-import ProjectCarousel from "@/components/ui/ProjectCarousel";
+import PixelSwap from "@/components/ui/PixelSwap"; // Sesuaikan jika tersimpan di "@/components/PixelSwap"
 import type { ProjectItem } from "@/types";
 
 interface ProjectCardProps {
@@ -20,12 +23,117 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     links,
   } = project;
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const hasMultipleImages = images && images.length > 1;
+  const nextIndex = images ? (currentIndex + 1) % images.length : 0;
+
+  const handleNext = () => {
+    if (!images || images.length <= 1) return;
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrev = () => {
+    if (!images || images.length <= 1) return;
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
   return (
     <li className="overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-accent/50">
       {/* Gambar di atas */}
       <div className="border-b border-border bg-background/50 p-4">
         {images && images.length > 0 ? (
-          <ProjectCarousel images={images} title={title} />
+          <div className="flex flex-col">
+            {/* Kotak pembungkus punya lebar & tinggi pasti agar PixelSwap tidak 0px */}
+            <div className="relative h-[260px] w-full overflow-hidden rounded-lg bg-black/20 sm:h-[400px]">
+              {hasMultipleImages ? (
+                <PixelSwap
+                  key={currentIndex}
+                  className="h-full w-full"
+                  firstContent={
+                    <div className="flex h-full w-full items-center justify-center">
+                      <img
+                        src={images[currentIndex]}
+                        alt={`${title} - ${currentIndex + 1}`}
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </div>
+                  }
+                  secondContent={
+                    <div className="flex h-full w-full items-center justify-center">
+                      <img
+                        src={images[nextIndex]}
+                        alt={`${title} - ${nextIndex + 1}`}
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </div>
+                  }
+                  pattern="pointer"
+                  pixelSize={48}
+                  pixelRadius={0}
+                  duration={400}
+                  pixelDuration={350}
+                  randomness={0.2}
+                  bounce={0.3}
+                  trigger="click"
+                  style={{ width: "100%", height: "100%", borderRadius: 8 }}
+                  gap={0}
+                  pixelScale={0}
+                  pixelSpin={0}
+                  intro
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center">
+                  <img
+                    src={images[0]}
+                    alt={title}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Kontrol Navigasi & Indikator jika foto lebih dari 1 */}
+            {hasMultipleImages && (
+              <div className="mt-4 flex w-full items-center justify-between px-1">
+                <div className="flex items-center gap-1.5">
+                  {images.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setCurrentIndex(idx)}
+                      aria-label={`Lihat foto ${idx + 1}`}
+                      className={`h-2 rounded-full transition-all ${
+                        idx === currentIndex
+                          ? "w-6 bg-accent"
+                          : "w-2 bg-border hover:bg-muted"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted">
+                    {currentIndex + 1} / {images.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="rounded-md border border-border bg-surface px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:border-accent/50"
+                  >
+                    ← Prev
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="rounded-md border border-border bg-surface px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:border-accent/50"
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         ) : (
           <div className="flex h-[200px] items-center justify-center rounded-lg bg-gradient-to-br from-accent/20 to-transparent">
             <span className="text-5xl font-bold text-accent-soft/60">
