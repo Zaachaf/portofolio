@@ -377,4 +377,5 @@ export const CONTACT = {
   email: "zaachaf@gmail.com",
   instagram: "@apgiiii",
   linkedin: "zabihullah-achmad",
+  github: "Zaachaf",
 } as const;

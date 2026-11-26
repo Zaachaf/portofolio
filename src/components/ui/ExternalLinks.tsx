@@ -20,7 +20,7 @@ interface ExternalLinksProps {
 
 export default function ExternalLinks({
   links,
-  label = "External Links",
+  label = "Social Links",
 }: ExternalLinksProps) {
   const [open, setOpen] = useState<boolean>(false);
   const rootRef = useRef<HTMLDivElement>(null);

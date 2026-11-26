@@ -36,6 +36,11 @@ const CONTACT_ITEMS: readonly ContactItem[] = [
     value: CONTACT.instagram,
     href: `https://instagram.com/${CONTACT.instagram.replace("@", "")}`,
   },
+  {
+    label: "Github",
+    value: CONTACT.github,
+    href: `https://github.com/${CONTACT.github.replace("@", "")}`,
+  },
 ];
 
 export default function Contact() {
